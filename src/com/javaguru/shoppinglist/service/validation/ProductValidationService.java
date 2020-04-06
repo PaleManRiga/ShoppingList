@@ -11,15 +11,9 @@ public class ProductValidationService {
 
     public ProductValidationService() {
         validationRules.add(new ProductNameValidationRule());
-        validationRules.add(new ProductPriceValidationRule());
-        validationRules.add(new ProductDiscountValidationRule());
     }
 
-    public void validate(Product product) throws ProductValidationException, IllegalArgumentException {
-
-        for (ProductValidationRule productValidationRule : validationRules) {
-            productValidationRule.validate(product);
-        }
-
+    public void validate(Product product) {
+        validationRules.forEach(s -> s.validate(product));
     }
 }
