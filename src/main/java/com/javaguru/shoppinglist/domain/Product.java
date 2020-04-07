@@ -1,5 +1,7 @@
 package com.javaguru.shoppinglist.domain;
 
+import com.javaguru.shoppinglist.service.Category;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -8,15 +10,15 @@ public class Product {
     private Long id;
     private String name;
     private BigDecimal price;
-    private String category;
+    private Category category;
     private BigDecimal discount;
     private String description;
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

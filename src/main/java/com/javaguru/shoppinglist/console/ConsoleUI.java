@@ -1,21 +1,28 @@
 package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.service.Category;
 import com.javaguru.shoppinglist.service.ProductService;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ConsoleUI {
-    private ProductService productService = new ProductService();
+    private ProductService productService;
+
+    public ConsoleUI(ProductService productService) {
+        this.productService = productService;
+
+    }
 
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
                 System.out.println("1. Create task");
-                System.out.println("2. Find task by id");
-                System.out.println("3. Exit");
+                System.out.println("2. Find product by id");
+                System.out.println("3. Delete product by id");
+                System.out.println("4. Exit");
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
@@ -25,6 +32,9 @@ public class ConsoleUI {
                         findProduct();
                         break;
                     case 3:
+                        deleteProduct();
+                        break;
+                    case 4:
                         return;
                 }
             } catch (Exception e) {
@@ -34,7 +44,7 @@ public class ConsoleUI {
         }
     }
 
-    void createProduct() {
+    private void createProduct() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter product name: ");
         String name = scanner.nextLine();
@@ -56,7 +66,7 @@ public class ConsoleUI {
         product.setPrice(price);
         product.setDescription(description);
         product.setDiscount(discount);
-        product.setCategory(category);
+        product.setCategory(Category.valueOf(category));
 
         Long id = productService.createProduct(product);
         System.out.println("Result: " + id);
@@ -65,9 +75,16 @@ public class ConsoleUI {
 
     private void findProduct() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter task id: ");
+        System.out.println("Enter product id: ");
         Long id = scanner.nextLong();
         Product product = productService.findProductById(id);
         System.out.println(product);
+    }
+
+    private void deleteProduct() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product id: ");
+        long id = scanner.nextLong();
+        productService.deleteProduct(id);
     }
 }
