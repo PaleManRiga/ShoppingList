@@ -4,9 +4,12 @@ import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.Category;
 import com.javaguru.shoppinglist.service.ProductService;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+@Component
 public class ConsoleUI {
     private ProductService productService;
 
@@ -19,7 +22,7 @@ public class ConsoleUI {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
-                System.out.println("1. Create task");
+                System.out.println("1. Create product");
                 System.out.println("2. Find product by id");
                 System.out.println("3. Delete product by id");
                 System.out.println("4. Exit");
