@@ -12,15 +12,11 @@ import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Profile("local")
 public class DefaultProductRepository implements ProductRepository {
-    private Map<Long, Product> productRepository = new HashMap<>();
-    private Long productIdSequence = 0L;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -39,7 +35,7 @@ public class DefaultProductRepository implements ProductRepository {
             PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, product.getName());
             ps.setBigDecimal(2, product.getPrice());
-            ps.setString(3, product.getCategory().toString());
+            ps.setInt(3, product.getCategory().ordinal());
             ps.setBigDecimal(4, product.getDiscount());
             ps.setString(5, product.getDescription());
             return ps;
@@ -63,7 +59,7 @@ public class DefaultProductRepository implements ProductRepository {
     }
 
     @Override
-    public boolean isUnique(Product product){
+    public boolean isUnique(Product product) {
         String query = "select case when count(*)>0 then false else true end " +
                 "from products p where p.name=" + "'" + product.getName() + "'";
         return jdbcTemplate.queryForObject(query, Boolean.class);
