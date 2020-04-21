@@ -1,8 +1,12 @@
 package com.javaguru.shoppinglist.console;
 
+import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.service.Category;
 import com.javaguru.shoppinglist.service.ProductService;
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.service.ShoppingCartProductService;
+import com.javaguru.shoppinglist.service.ShoppingCartService;
+
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -12,10 +16,13 @@ import java.util.Scanner;
 public class ConsoleUI {
 
     private ProductService productService;
+    private ShoppingCartService shoppingCartService;
+    private ShoppingCartProductService shoppingCartProductService;
 
-    public ConsoleUI(ProductService productService) {
+    public ConsoleUI(ProductService productService, ShoppingCartService shoppingCartService, ShoppingCartProductService shoppingCartProductService) {
         this.productService = productService;
-
+        this.shoppingCartService = shoppingCartService;
+        this.shoppingCartProductService = shoppingCartProductService;
     }
 
     public void execute() {
@@ -25,7 +32,10 @@ public class ConsoleUI {
                 System.out.println("1. Create product");
                 System.out.println("2. Find product by id");
                 System.out.println("3. Delete product by id");
-                System.out.println("4. Exit");
+                System.out.println("4. Create shopping cart");
+                System.out.println("5. Find shopping cart by id");
+                System.out.println("6. Assign product to shopping cart");
+                System.out.println("7. Exit");
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
@@ -38,6 +48,15 @@ public class ConsoleUI {
                         deleteProduct();
                         break;
                     case 4:
+                        createShoppingCart();
+                        break;
+                    case 5:
+                        findShoppingCartById();
+                        break;
+                    case 6:
+                        assignProductToShoppingCartById();
+                        break;
+                    case 7:
                         return;
                 }
             } catch (Exception e) {
@@ -80,7 +99,7 @@ public class ConsoleUI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter product id: ");
         Long id = scanner.nextLong();
-        Product product = productService.findProductById(id);
+        Product product = productService.findProduct(id);
         System.out.println(product);
     }
 
@@ -89,5 +108,39 @@ public class ConsoleUI {
         System.out.println("Enter product id: ");
         long id = scanner.nextLong();
         productService.deleteProduct(id);
+    }
+
+    private void createShoppingCart() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter shopping cart name: ");
+        String cartName = scanner.nextLine();
+        System.out.println("Enter shopping cart description: ");
+        String cartDescription = scanner.nextLine();
+
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setName(cartName);
+        shoppingCart.setDescription(cartDescription);
+
+        Long shoppingCartId = shoppingCartService.createShoppingCart(shoppingCart);
+        System.out.println("Result: " + shoppingCartId);
+    }
+
+    private void findShoppingCartById() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter shopping cart id: ");
+        long cartId = scanner.nextLong();
+        ShoppingCart findShoppingCartResult = shoppingCartService.findShoppingCart(cartId);
+        System.out.println(findShoppingCartResult);
+    }
+
+    private void assignProductToShoppingCartById() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product id: ");
+        long createdProductId = scanner.nextLong();
+        System.out.println("Enter shopping cart id: ");
+        long createdCartId = scanner.nextLong();
+        System.out.println("Enter products amount in shopping cart : ");
+        long productsAmount = scanner.nextLong();
+        shoppingCartProductService.assignProductToShoppingCart(createdProductId, createdCartId, productsAmount);
     }
 }

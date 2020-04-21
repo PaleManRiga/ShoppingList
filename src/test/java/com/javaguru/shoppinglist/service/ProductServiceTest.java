@@ -36,7 +36,7 @@ public class ProductServiceTest {
         assertEquals(product(), productCaptorResult);
         assertEquals(product.getId(), result);
     }
-
+   
     @Test
     public void shouldFindProduct(){
         when(repository.findProductById(10L)).thenReturn(product());
