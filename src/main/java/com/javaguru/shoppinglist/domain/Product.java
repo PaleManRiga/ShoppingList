@@ -5,13 +5,31 @@ import com.javaguru.shoppinglist.service.Category;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import javax.persistence.*;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "products")
 public class Product {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name ="category")
     private Category category;
+
+    @Column(name = "discount")
     private BigDecimal discount;
+
+    @Column(name = "description")
     private String description;
 
     public Category getCategory() {
