@@ -5,6 +5,7 @@ import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.domain.ShoppingCartProduct;
 import com.javaguru.shoppinglist.repository.ShoppingCartProductRepository;
 import com.javaguru.shoppinglist.repository.ShoppingCartRepository;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,7 +23,7 @@ public class ShoppingCartProductService {
         this.repository = repository;
     }
 
-    public void assignProductToShoppingCart(Long productId, Long shoppingCartId, Long productsAmount){
+    public void assignProductToShoppingCart(Long productId, Long shoppingCartId, Long productsAmount) {
         Product product = productService.findProduct(productId);
         ShoppingCart shoppingCart = shoppingCartService.findShoppingCart(shoppingCartId);
         ShoppingCartProduct shoppingCartProduct = new ShoppingCartProduct(productsAmount, shoppingCart, product);

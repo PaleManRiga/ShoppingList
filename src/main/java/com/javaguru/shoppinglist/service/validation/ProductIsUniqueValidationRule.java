@@ -6,7 +6,7 @@ import com.javaguru.shoppinglist.repository.ProductRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductIsUniqueValidationRule implements ProductValidationRule{
+public class ProductIsUniqueValidationRule implements ProductValidationRule {
 
     private final ProductRepository repository;
 
@@ -15,9 +15,9 @@ public class ProductIsUniqueValidationRule implements ProductValidationRule{
     }
 
     @Override
-    public void validate (Product product){
+    public void validate(Product product) {
         checkNotNull(product);
-        if (!repository.isUnique(product)){
+        if (!repository.isUnique(product)) {
             throw new IllegalArgumentException("Product name is not unique!");
         }
     }

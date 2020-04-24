@@ -1,6 +1,7 @@
 package com.javaguru.shoppinglist.domain;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 
 @Entity
@@ -9,7 +10,7 @@ import java.io.Serializable;
 public class ShoppingCartProduct {
 
     @Embeddable
-    public static class Id implements Serializable{
+    public static class Id implements Serializable {
 
         @Column(name = "cart_id")
         private Long shoppingCartId;
@@ -17,9 +18,10 @@ public class ShoppingCartProduct {
         @Column(name = "product_id")
         private Long productId;
 
-        public Id(){}
+        public Id() {
+        }
 
-        public Id(Long shoppingCartId, Long productId){
+        public Id(Long shoppingCartId, Long productId) {
             this.shoppingCartId = shoppingCartId;
             this.productId = productId;
         }

@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Component
 @Profile("inmemorydb")
-public class ProductInMemoryRepository implements ProductRepository{
+public class ProductInMemoryRepository implements ProductRepository {
     private Long productIdSequence = 0L;
     private Map<Long, Product> productRepository = new HashMap<>();
 
@@ -30,9 +30,11 @@ public class ProductInMemoryRepository implements ProductRepository{
         productRepository.remove(id);
     }
 
-    public boolean isUnique(Product product){
-        for(Product productInRepository : productRepository.values()){
-            if (productInRepository.getName().equals(product.getName())){return false;}
+    public boolean isUnique(Product product) {
+        for (Product productInRepository : productRepository.values()) {
+            if (productInRepository.getName().equals(product.getName())) {
+                return false;
+            }
         }
         return true;
     }
