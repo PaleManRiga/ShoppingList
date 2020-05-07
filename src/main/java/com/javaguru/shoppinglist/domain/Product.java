@@ -3,7 +3,9 @@ package com.javaguru.shoppinglist.domain;
 import com.javaguru.shoppinglist.service.Category;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.persistence.Table;
@@ -11,6 +13,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "products")
 public class Product {
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Set<ShoppingCartProduct> shoppingCartProducts = new HashSet<>();
 
     @Id
     @Column(name = "id")
@@ -108,5 +114,14 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, price, category, discount, description);
+    }
+
+
+    public Set<ShoppingCartProduct> getShoppingCartProducts() {
+        return shoppingCartProducts;
+    }
+
+    public void setShoppingCartProducts(Set<ShoppingCartProduct> shoppingCartProducts) {
+        this.shoppingCartProducts = shoppingCartProducts;
     }
 }
