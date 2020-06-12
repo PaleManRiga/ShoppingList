@@ -1,6 +1,7 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.ShoppingCartProduct;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ public class ShoppingCartProductRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public void insert(ShoppingCartProduct shoppingCartProduct){
+    public void insert(ShoppingCartProduct shoppingCartProduct) {
         sessionFactory.getCurrentSession().save(shoppingCartProduct);
     }
 }

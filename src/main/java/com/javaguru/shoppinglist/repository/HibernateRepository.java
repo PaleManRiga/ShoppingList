@@ -18,7 +18,7 @@ public class HibernateRepository implements ProductRepository {
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public  HibernateRepository(SessionFactory sessionFactory) {
+    public HibernateRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -41,9 +41,9 @@ public class HibernateRepository implements ProductRepository {
         sessionFactory.getCurrentSession().delete(findProductById(id));
     }
 
-    public boolean isUnique(Product product){
+    public boolean isUnique(Product product) {
         String query = "select case when count(*)>0 then false else true end " +
-                "from Product p where p.name=:name" ;
+                "from Product p where p.name=:name";
         return (boolean) sessionFactory.getCurrentSession().createQuery(query)
                 .setString("name", product.getName())
                 .setMaxResults(1)

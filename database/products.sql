@@ -10,7 +10,7 @@ CREATE TABLE products (
 )
     AUTO_INCREMENT = 1;
 
-SET GLOBAL time_zone = '+2:00';
+SET GLOBAL time_zone = '+0:00';
 
 CREATE TABLE shopping_carts (
                                 id BIGINT NOT NULL AUTO_INCREMENT,

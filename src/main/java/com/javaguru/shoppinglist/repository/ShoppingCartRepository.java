@@ -1,6 +1,7 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class ShoppingCartRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public ShoppingCart insert(ShoppingCart shoppingCart){
+    public ShoppingCart insert(ShoppingCart shoppingCart) {
         sessionFactory.getCurrentSession().save(shoppingCart);
         return shoppingCart;
     }
 
-    public ShoppingCart findProductById(Long id){
+    public ShoppingCart findProductById(Long id) {
         ShoppingCart shoppingCart = (ShoppingCart) sessionFactory.getCurrentSession().createCriteria(ShoppingCart.class)
                 .add(Restrictions.eq("id", id))
                 .uniqueResult();
